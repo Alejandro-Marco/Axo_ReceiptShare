@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "378467765592",
+    "project_id": "axo-receipt",
+    "storage_bucket": "axo-receipt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378467765592:android:8fc59cd6e4369a1102692d",
+        "android_client_info": {
+          "package_name": "com.axolotl.receiptmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378467765592-k6tma4q0gu5m1ntkbl61iohjqlasgr56.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuPZ4yVwpv6kGyuWF_DWsjBl-zV94Oruk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378467765592-k6tma4q0gu5m1ntkbl61iohjqlasgr56.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
