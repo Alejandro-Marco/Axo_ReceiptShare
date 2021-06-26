@@ -3,6 +3,8 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id 'com.google.firebase.firebase-perf'
 }
 
 android {
@@ -55,4 +57,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:28.1.0')              // BoM
     implementation 'com.google.firebase:firebase-analytics-ktx'                     // Analytics
     implementation 'com.google.firebase:firebase-firestore-ktx'                     // Firestore
+    implementation 'com.google.firebase:firebase-storage-ktx'                       // Storage
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'                   // crashlytics
+    implementation 'com.google.firebase:firebase-perf-ktx'                          // performance
 }

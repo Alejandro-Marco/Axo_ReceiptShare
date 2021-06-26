@@ -4,25 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.FrontActivity">
+    tools:context=".activity.FrontActivity"
+    android:background="@color/deep_blue">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/buttonHolder"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:padding="16dp"
+            android:src="@drawable/share"
+            android:background="@drawable/border"
+            android:backgroundTint="@color/white_cream"
+            app:tint="@color/white_cream" />
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/buttonHolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         android:orientation="vertical"
-        android:layout_marginHorizontal="32dp"
+        android:layout_marginHorizontal="64dp"
         android:layout_marginBottom="50dp">
+
         <Button
             android:id="@+id/btnUpload"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Upload"/>
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_btn_action"
+            android:text="Upload"
+            android:theme="@style/CustomButton" />
         <Button
             android:id="@+id/btnDownload"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn_action"
+            android:theme="@style/CustomButton"
             android:text="Download"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
