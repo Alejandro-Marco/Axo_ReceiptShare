@@ -56,7 +56,7 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-//        TextView uid;
+        //        TextView uid;
         TextView price;
         TextView date;
         TextView type;

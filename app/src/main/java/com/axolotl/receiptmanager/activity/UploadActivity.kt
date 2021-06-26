@@ -14,6 +14,7 @@ import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import com.axolotl.receiptmanager.model.ReceiptData
+import com.axolotl.receiptmanager.utility.PATH_RECEIPT
 import com.axolotl.receiptmanager.utility.UPLOAD_ACTIVITY
 import com.axolotl.receiptmanager.utility.showToast
 import com.google.firebase.firestore.ktx.firestore
@@ -27,7 +28,7 @@ class UploadActivity : AppCompatActivity() {
     // Firebase
     private val firestoreDB = Firebase.firestore
     private val firebaseStorage = FirebaseStorage.getInstance()
-    private val firebaseStorageImage = firebaseStorage.getReference("Receipts")
+    private val firebaseStorageImage = firebaseStorage.getReference(PATH_RECEIPT)
 
     private var accountImageBitmap: Bitmap? = null
     private var accountImageURI: Uri? = null
@@ -85,11 +86,11 @@ class UploadActivity : AppCompatActivity() {
         amount: Double,
         date: String
     ) {
-        val uid = firestoreDB.collection("Receipts").document().id
+        val uid = firestoreDB.collection(PATH_RECEIPT).document().id
         val receiptData = ReceiptData(type, amount, date, uid)
         Log.d(UPLOAD_ACTIVITY, "Uploading Receipt Data")
         showToast("Uploading Receipt", 1000)
-        firestoreDB.collection("Receipts")
+        firestoreDB.collection(PATH_RECEIPT)
             .document(uid)
             .set(receiptData)
             .addOnSuccessListener {
@@ -111,7 +112,7 @@ class UploadActivity : AppCompatActivity() {
                     accountImageURI = null
                     etAmount.text?.clear()
                     etType.text?.clear()
-                    ivReceipt.setImageResource(R.drawable.invoice)
+                    ivReceipt.setImageResource(R.drawable.img_invoice)
                     ImageViewCompat.setImageTintList(
                         ivReceipt,
                         ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white))

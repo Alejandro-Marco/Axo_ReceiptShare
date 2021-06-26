@@ -1,8 +1,6 @@
 package com.axolotl.receiptmanager.activity
 
 import android.content.ContentValues
-import android.content.Context
-import android.content.ContextWrapper
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -21,17 +19,16 @@ import com.axolotl.receiptmanager.R
 import com.axolotl.receiptmanager.adapter.ReceiptAdapter
 import com.axolotl.receiptmanager.model.ReceiptData
 import com.axolotl.receiptmanager.utility.MAIN_ACTIVITY
+import com.axolotl.receiptmanager.utility.PATH_RECEIPT
 import com.axolotl.receiptmanager.utility.launchActivity
+import com.axolotl.receiptmanager.utility.showToast
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_upload.view.*
-import kotlinx.android.synthetic.main.dialog_receipt.view.*
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 import java.io.OutputStream
 import java.util.*
 import kotlin.collections.ArrayList
@@ -41,7 +38,7 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
     // Firebase
     private val firestoreDB = Firebase.firestore
     private val firebaseStorage = FirebaseStorage.getInstance()
-    private val firebaseStorageImage = firebaseStorage.getReference("Receipts")
+    private val firebaseStorageImage = firebaseStorage.getReference(PATH_RECEIPT)
     private var firestoreListener: ListenerRegistration? = null
 
     // Receipt Recycler View
@@ -63,14 +60,17 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
         rvReceiptList.adapter = receiptAdapter
 
         btnSearch.setOnClickListener {
-            val type = if (etType.text.toString().isEmpty()) arrayListOf<String>("any") else ArrayList(
-                etType.text
-                    .toString()
-                    .lowercase(Locale.getDefault())
-                    .replace(" ", "")
-                    .split(',')
-            )
-            val minAmount = if (etAmount.text.toString().isEmpty()) 0.00 else etAmount.text.toString().toDouble()
+            val type =
+                if (etType.text.toString().isEmpty()) arrayListOf<String>("any") else ArrayList(
+                    etType.text
+                        .toString()
+                        .lowercase(Locale.getDefault())
+                        .replace(" ", "")
+                        .split(',')
+                )
+            val minAmount =
+                if (etAmount.text.toString().isEmpty()) 0.00 else etAmount.text.toString()
+                    .toDouble()
             val minDate = "${datePicker.year}/${datePicker.month + 1}/${datePicker.dayOfMonth}"
             readFirestore(type, minAmount, minDate)
 
@@ -78,6 +78,7 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
                 etType.setText("any")
             if (etAmount.text.toString().isEmpty())
                 etAmount.setText("0.00")
+            showToast("Searching", 500)
         }
     }
 
@@ -89,7 +90,7 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
         } catch (e: Exception) {
             Log.d(MAIN_ACTIVITY, "No Listener found")
         }
-        firestoreDB.collection("Receipts")
+        firestoreDB.collection(PATH_RECEIPT)
             .get()
             .addOnSuccessListener { QuerySnapshots ->
                 Log.d(MAIN_ACTIVITY, "Firestore read successful")
@@ -120,7 +121,7 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
     }
 
     private fun addFirestoreListener(type: ArrayList<String>, minAmount: Double, minDate: String) {
-        val query = firestoreDB.collection("Receipts")
+        val query = firestoreDB.collection(PATH_RECEIPT)
         firestoreListener = query.addSnapshotListener { QuerySnapshots, e ->
             receiptList.clear()
             Log.d(MAIN_ACTIVITY, "CHANGES")
@@ -145,7 +146,6 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
     }
 
     /***
-     * FUN FUN FUN
      * NEW TASK - Create function that outputs true if sub array exist in an array
      * 27 sec
      * Passed all test
@@ -159,9 +159,8 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
     }
 
     /***
-     * FUN FUN FUN
      * NEW TASK - Create function that outputs true if sub array exist in an array
-     * 12 sec
+     * 18 sec
      * Passed all test
      */
     private fun isInArray(mainArray: ArrayList<String>, subArray: ArrayList<String>): Boolean {
@@ -173,7 +172,7 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
     }
 
     /***
-     * NEW TASK - Create function that check if date is less than minimum
+     * NEW TASK - Create function that checks if date is less than minimum
      * 33 sec
      * Passed all test
      */
@@ -228,7 +227,7 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
         builder.setTitle(uid)
         builder.setView(dialogLayout)
         builder.setPositiveButton("Get") { _, _ ->
-            firestoreDB.collection("Receipts")
+            firestoreDB.collection(PATH_RECEIPT)
                 .document(uid)
                 .delete()
                 .addOnSuccessListener {

@@ -4,82 +4,90 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity"
-    android:background="@color/deep_blue">
+    android:background="@color/deep_blue"
+    tools:context=".activity.MainActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ScrollView
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_marginHorizontal="32dp"
+                android:orientation="vertical"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/CustomTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Type"
                     android:layout_marginHorizontal="32dp"
-                    app:endIconMode="clear_text"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:hint="Type"
+                    app:endIconMode="clear_text">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etType"
                         style="@style/CustomTextInputEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"/>
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/CustomTextInputLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Minimum Amount"
                     android:layout_marginHorizontal="32dp"
-                    app:endIconMode="clear_text"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:hint="Minimum Amount"
+                    app:endIconMode="clear_text">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etAmount"
                         style="@style/CustomTextInputEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"/>
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <DatePicker
-                    android:theme="@style/CustomDatePicker"
                     android:id="@+id/datePicker"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:datePickerMode="spinner"
+                    android:layout_marginBottom="10dp"
                     android:calendarViewShown="false"
-                    android:layout_marginBottom="10dp"/>
+                    android:datePickerMode="spinner"
+                    android:theme="@style/CustomDatePicker" />
 
                 <Button
                     android:id="@+id/btnSearch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_btn_action"
-                    android:theme="@style/CustomButton"
                     android:layout_marginHorizontal="32dp"
-                    android:text="Search"/>
+                    android:background="@drawable/bg_btn_action"
+                    android:text="Search"
+                    android:theme="@style/CustomButton" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp">
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvReceiptList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        tools:itemCount="10"
                         android:layout_marginBottom="10dp"
                         android:nestedScrollingEnabled="false"
-                        tools:listitem="@layout/rv_receipt_price_row"/>
+                        tools:itemCount="10"
+                        tools:listitem="@layout/rv_receipt_price_row" />
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>

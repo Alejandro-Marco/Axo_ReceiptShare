@@ -13,10 +13,12 @@ public class ReceiptData {
 
     public ReceiptData(ArrayList<String> type, Double amount, String date, String uid) {
         type.add("any");
+        // Remove redundant types
         ArrayList<String> _type = new ArrayList<>();
         for (String t : type)
             if (!_type.contains(t))
                 _type.add(t);
+
         this.type = _type;
         this.amount = amount;
         this.date = date;

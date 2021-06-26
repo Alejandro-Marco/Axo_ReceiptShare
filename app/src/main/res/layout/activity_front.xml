@@ -8,17 +8,39 @@
     android:background="@color/deep_blue">
 
     <LinearLayout
+        android:id="@+id/layoutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingTop="50dp"
+        android:paddingBottom="20dp"
+        android:background="@drawable/bg_title"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            style="@style/CustomTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Receipt"/>
+        <TextView
+            style="@style/CustomTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Share"/>
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/buttonHolder"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/layoutTitle"
+        android:orientation="vertical">
         <ImageView
             android:layout_width="128dp"
             android:layout_height="128dp"
             android:padding="16dp"
-            android:src="@drawable/share"
-            android:background="@drawable/border"
+            android:src="@drawable/img_share"
+            android:background="@drawable/img_border"
             android:backgroundTint="@color/white_cream"
             app:tint="@color/white_cream" />
     </LinearLayout>

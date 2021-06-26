@@ -61,7 +61,7 @@
 
                 <ImageView
                     android:id="@+id/ivReceipt"
-                    android:src="@drawable/invoice"
+                    android:src="@drawable/img_invoice"
                     android:scaleType="fitCenter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

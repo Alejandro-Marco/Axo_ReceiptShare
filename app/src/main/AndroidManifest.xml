@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/share_logo"
+        android:icon="@drawable/img_share_logo"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/share_logo"
+        android:roundIcon="@drawable/img_share_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.ReceiptManager_v00">
 
