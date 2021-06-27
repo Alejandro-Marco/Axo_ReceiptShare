@@ -100,11 +100,11 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
 
     private fun checkPermission() {
         if (ContextCompat.checkSelfPermission(
-                this, (
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
             ) == PackageManager.PERMISSION_GRANTED
         ) {
-            showToast("Storage Permission Granted", 1000)
+//            showToast("Storage Permission Granted", 1000)
         } else {
             requestStoragePermission()
         }
@@ -116,11 +116,11 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             )
         ) {
+            Log.d(MAIN_ACTIVITY, "Permission Prompt")
             val permissionDialog = AlertDialog.Builder(this)
             permissionDialog.setTitle("Permission Needed")
             permissionDialog.setMessage("This app requires permission to use storage")
             permissionDialog.setPositiveButton("Allow") { _, _ ->
-                showToast("Permission Granted", 1000)
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
@@ -140,6 +140,7 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
                 }
             }.create().show()
         } else {
+            Log.d(MAIN_ACTIVITY, "Permission Prompt Skipped")
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
@@ -158,9 +159,21 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 showToast("Permission Granted", 1000)
             else {
-                showToast("Permission not Granted", 1000)
-                launchActivity<FrontActivity> {
+                if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                    val permissionDialog = AlertDialog.Builder(this)
+                    permissionDialog.setTitle("Permission Required")
+                    permissionDialog.setMessage("Please go this app's setting and give permission to use storage.\n")
+                    permissionDialog.setPositiveButton("Ok") { _, _ ->
+                        launchActivity<FrontActivity> {
 
+                        }
+                    }
+                    permissionDialog.create().show()
+                } else {
+                    showToast("Permission Denied", 1000)
+                    launchActivity<FrontActivity> {
+
+                    }
                 }
             }
         }

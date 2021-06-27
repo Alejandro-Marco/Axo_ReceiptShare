@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
 import com.axolotl.receiptmanager.R
 import android.util.Log
@@ -40,6 +41,8 @@ class UploadActivity : AppCompatActivity() {
      * using pseudoTrace instead
      */
     private var uploadStartTime: Long? = null
+
+    private var imageUploading = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,8 +91,12 @@ class UploadActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 //        super.onBackPressed()
-        launchActivity<FrontActivity> {
+        if (!imageUploading) {
+            launchActivity<FrontActivity> {
 
+            }
+        } else {
+            showToast("Please wait")
         }
     }
 
@@ -99,11 +106,24 @@ class UploadActivity : AppCompatActivity() {
         date: String
     ) {
         uploadStartTime = System.currentTimeMillis()
+        imageUploading = true
         val uid = firestoreDB.collection(PATH_RECEIPT).document().id
         val receiptData = ReceiptData(type, amount, date, uid)
         Log.d(UPLOAD_ACTIVITY, "Uploading Receipt Data")
         layoutLoading.visibility = VISIBLE
         showToast("Uploading Receipt", 1000)
+        // Update the user after n seconds to say that image is still being uploaded
+        val handler = Handler()
+        handler.postDelayed(object : Runnable {
+            override fun run() {
+                if (imageUploading){
+                    Log.d(MAIN_ACTIVITY, "Prompt that image is still uploading")
+                    showToast(UPLOAD_PROMPTS.random(), 1500)
+                    handler.postDelayed(this, UPLOAD_PROMPT_WAIT_TIME)
+                }
+            }
+        }, UPLOAD_PROMPT_WAIT_TIME)
+
         firestoreDB.collection(PATH_RECEIPT)
             .document(uid)
             .set(receiptData)
@@ -133,6 +153,7 @@ class UploadActivity : AppCompatActivity() {
                     )
                     showToast("Receipt Uploaded Thank you", 1500)
                     layoutLoading.visibility = GONE
+                    imageUploading = false
                     firebaseAnalytics.logEvent("uploaded_receipt", Bundle().apply {
                         this.putString("uid", uid)
                         this.putString("amount", amount.toString())
@@ -143,11 +164,15 @@ class UploadActivity : AppCompatActivity() {
                 urlTask.addOnFailureListener {
                     showToast("Failed Uploading", 1000)
                     layoutLoading.visibility = GONE
+                    imageUploading = false
+                    pseudoTrace("failed_upload_duration", uploadStartTime!!)
                 }
             }
             .addOnFailureListener {
                 Log.d(UPLOAD_ACTIVITY, "Receipt Data failed uploading")
                 layoutLoading.visibility = GONE
+                imageUploading = false
+                pseudoTrace("failed_upload_duration", uploadStartTime!!)
             }
     }
 
