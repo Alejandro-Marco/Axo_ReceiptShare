@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
         ) {
             Log.d(MAIN_ACTIVITY, "Permission Prompt")
             val permissionDialog = AlertDialog.Builder(this)
-            permissionDialog.setTitle("Permission Needed")
+            permissionDialog.setTitle("Permission Required")
             permissionDialog.setMessage("This app requires permission to use storage")
             permissionDialog.setPositiveButton("Allow") { _, _ ->
                 ActivityCompat.requestPermissions(
