@@ -60,4 +60,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage-ktx'                       // Storage
     implementation 'com.google.firebase:firebase-crashlytics-ktx'                   // crashlytics
     implementation 'com.google.firebase:firebase-perf-ktx'                          // performance
+
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
 }

@@ -83,4 +83,22 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutLoading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="50dp"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:background="@color/dark_blue_clear">
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/loading" />
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.IntRange
 import java.util.*
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.perf.ktx.performance
+import android.util.Log
 
 private lateinit var toast: Toast
 private lateinit var toastHandler: android.os.Handler
@@ -74,4 +77,16 @@ fun Context.hideKeyboard(view: View) {
     imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
-
+fun pseudoTrace(traceName: String, startTime: Long) {
+    val traceDuration = System.currentTimeMillis() - startTime
+    val initialHandler = android.os.Handler(Looper.getMainLooper())
+    initialHandler.postDelayed({
+        val traceHandler = android.os.Handler(Looper.getMainLooper())
+        val trace = Firebase.performance.newTrace(traceName)
+        Log.d(HELPER, "$traceName - $traceDuration")
+        trace.start()
+        traceHandler.postDelayed({
+            trace.stop()
+        }, traceDuration)
+    }, 0)
+}

@@ -7,3 +7,5 @@ const val MAIN_ACTIVITY = "my:MainActivity"
 
 // Firebase
 const val PATH_RECEIPT = "Receipts"
+
+const val HELPER = "Helper"

@@ -9,17 +9,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import com.axolotl.receiptmanager.R
-import com.axolotl.receiptmanager.utility.launchActivity
 import android.util.Log
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import com.axolotl.receiptmanager.model.ReceiptData
-import com.axolotl.receiptmanager.utility.PATH_RECEIPT
-import com.axolotl.receiptmanager.utility.UPLOAD_ACTIVITY
-import com.axolotl.receiptmanager.utility.showToast
+import com.axolotl.receiptmanager.utility.*
+import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_upload.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -29,9 +30,16 @@ class UploadActivity : AppCompatActivity() {
     private val firestoreDB = Firebase.firestore
     private val firebaseStorage = FirebaseStorage.getInstance()
     private val firebaseStorageImage = firebaseStorage.getReference(PATH_RECEIPT)
+    private val firebaseAnalytics = Firebase.analytics
 
     private var accountImageBitmap: Bitmap? = null
     private var accountImageURI: Uri? = null
+
+    /**
+     * Performance monitoring does not work as intended when using listeners
+     * using pseudoTrace instead
+     */
+    private var uploadStartTime: Long? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,10 +74,14 @@ class UploadActivity : AppCompatActivity() {
                     amount,
                     date
                 )
+            } else {
+                if (accountImageBitmap != null)
+                    showToast("Missing Inputs")
             }
         }
 
         ivReceipt.setOnClickListener {
+            Log.d(UPLOAD_ACTIVITY, "Click Image")
             loadReceiptImage()
         }
     }
@@ -86,9 +98,11 @@ class UploadActivity : AppCompatActivity() {
         amount: Double,
         date: String
     ) {
+        uploadStartTime = System.currentTimeMillis()
         val uid = firestoreDB.collection(PATH_RECEIPT).document().id
         val receiptData = ReceiptData(type, amount, date, uid)
         Log.d(UPLOAD_ACTIVITY, "Uploading Receipt Data")
+        layoutLoading.visibility = VISIBLE
         showToast("Uploading Receipt", 1000)
         firestoreDB.collection(PATH_RECEIPT)
             .document(uid)
@@ -118,13 +132,22 @@ class UploadActivity : AppCompatActivity() {
                         ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white))
                     )
                     showToast("Receipt Uploaded Thank you", 1500)
+                    layoutLoading.visibility = GONE
+                    firebaseAnalytics.logEvent("uploaded_receipt", Bundle().apply {
+                        this.putString("uid", uid)
+                        this.putString("amount", amount.toString())
+                        this.putString("date", date)
+                    })
+                    pseudoTrace("upload_duration", uploadStartTime!!)
                 }
                 urlTask.addOnFailureListener {
                     showToast("Failed Uploading", 1000)
+                    layoutLoading.visibility = GONE
                 }
             }
             .addOnFailureListener {
                 Log.d(UPLOAD_ACTIVITY, "Receipt Data failed uploading")
+                layoutLoading.visibility = GONE
             }
     }
 
@@ -140,7 +163,8 @@ class UploadActivity : AppCompatActivity() {
             ImageViewCompat.setImageTintList(ivReceipt, null)
             accountImageURI = data.data!!
             accountImageBitmap = MediaStore.Images.Media.getBitmap(contentResolver, accountImageURI)
-            ivReceipt.setImageBitmap(accountImageBitmap)
+//            ivReceipt.setImageBitmap(accountImageBitmap)
+            Picasso.with(this).load(accountImageURI).into(ivReceipt)
         }
     }
 }

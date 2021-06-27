@@ -1,6 +1,7 @@
 package com.axolotl.receiptmanager.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ReceiptData {
     public ArrayList<String> type;
@@ -24,4 +25,13 @@ public class ReceiptData {
         this.date = date;
         this.uid = uid;
     }
+
+    public double numericalDateValue() {
+        ArrayList<String> arrDate = new ArrayList(Arrays.asList(date.split("/")));
+        return
+                Double.parseDouble(arrDate.get(0))
+                        + (Double.parseDouble(arrDate.get(1)) / 12)
+                        + (Double.parseDouble(arrDate.get(2)) / 365);
+    }
+
 }
