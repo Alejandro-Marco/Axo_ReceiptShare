@@ -330,6 +330,8 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
         fos?.use {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
         }
+        fos?.close()
+//        showToast("Receipt Downloaded")
     }
 
     override fun onBackPressed() {
@@ -358,7 +360,7 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
                     val imageRef = firebaseStorageImage.child("${uid}.jpg")
                     imageRef.delete().addOnSuccessListener {
                         Log.d(MAIN_ACTIVITY, "Receipt Deleted")
-                        showToast("Receipt Downloaded")
+                        showToast("Receipt Downloading")
                         saveMediaToStorage(receiptImageBitmap!!, uid)
                         firebaseAnalytics.logEvent("get_receipt", Bundle().apply {
                             this.putString("uid", uid)

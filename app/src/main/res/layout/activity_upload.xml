@@ -65,7 +65,6 @@
                     android:scaleType="fitCenter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:maxHeight="400dp"
                     android:adjustViewBounds="true"
                     android:layout_marginVertical="20dp"
                     app:tint="@color/white" />

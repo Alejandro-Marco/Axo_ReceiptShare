@@ -17,11 +17,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
 import com.axolotl.receiptshare.model.ReceiptData
 import com.axolotl.receiptshare.utility.*
+import com.bumptech.glide.Glide
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_upload.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -189,7 +189,12 @@ class UploadActivity : AppCompatActivity() {
             accountImageURI = data.data!!
             accountImageBitmap = MediaStore.Images.Media.getBitmap(contentResolver, accountImageURI)
 //            ivReceipt.setImageBitmap(accountImageBitmap)
-            Picasso.with(this).load(accountImageURI).into(ivReceipt)
+            Glide.with(this)
+                .load(accountImageBitmap)
+                .fitCenter()
+                .override(2560, 6880)
+                .placeholder(R.drawable.img_invoice)
+                .into(ivReceipt)
         }
     }
 }
