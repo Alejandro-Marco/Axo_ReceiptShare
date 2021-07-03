@@ -1,12 +1,12 @@
-package com.axolotl.receiptmanager.activity
+package com.axolotl.receiptshare.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.axolotl.receiptmanager.R
-import com.axolotl.receiptmanager.utility.launchActivity
+import com.axolotl.receiptshare.R
+import com.axolotl.receiptshare.utility.launchActivity
 import kotlinx.android.synthetic.main.activity_front.*
 import android.util.Log
-import com.axolotl.receiptmanager.utility.FRONT_ACTIVITY
+import com.axolotl.receiptshare.utility.FRONT_ACTIVITY
 
 class FrontActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

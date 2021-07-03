@@ -1,4 +1,4 @@
-package com.axolotl.receiptmanager.activity
+package com.axolotl.receiptshare.activity
 
 import android.Manifest
 import android.content.ContentValues
@@ -19,10 +19,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.axolotl.receiptmanager.R
-import com.axolotl.receiptmanager.adapter.ReceiptAdapter
-import com.axolotl.receiptmanager.model.ReceiptData
-import com.axolotl.receiptmanager.utility.*
+import com.axolotl.receiptshare.R
+import com.axolotl.receiptshare.adapter.ReceiptAdapter
+import com.axolotl.receiptshare.model.ReceiptData
+import com.axolotl.receiptshare.utility.*
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.ktx.firestore

@@ -1,4 +1,4 @@
-package com.axolotl.receiptmanager.adapter;
+package com.axolotl.receiptshare.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -11,8 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.axolotl.receiptmanager.R;
-import com.axolotl.receiptmanager.model.ReceiptData;
+import com.axolotl.receiptshare.R;
+import com.axolotl.receiptshare.model.ReceiptData;
 
 import org.jetbrains.annotations.NotNull;
 

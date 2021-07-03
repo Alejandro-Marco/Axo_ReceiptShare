@@ -1,4 +1,4 @@
-package com.axolotl.receiptmanager.utility
+package com.axolotl.receiptshare.utility
 
 // Activities
 const val FRONT_ACTIVITY = "my:FrontActivity"

@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "378467765592",
-    "project_id": "axo-receipt",
-    "storage_bucket": "axo-receipt.appspot.com"
+    "project_number": "114683138397",
+    "project_id": "axo-receipt-share",
+    "storage_bucket": "axo-receipt-share.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:378467765592:android:8fc59cd6e4369a1102692d",
+        "mobilesdk_app_id": "1:114683138397:android:8e0ec2fe3840044aa018b4",
         "android_client_info": {
-          "package_name": "com.axolotl.receiptmanager"
+          "package_name": "com.axolotl.receiptshare"
         }
       },
       "oauth_client": [
         {
-          "client_id": "378467765592-k6tma4q0gu5m1ntkbl61iohjqlasgr56.apps.googleusercontent.com",
+          "client_id": "114683138397-b0svm7lf3dvtlu09t870848nqi279p49.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAuPZ4yVwpv6kGyuWF_DWsjBl-zV94Oruk"
+          "current_key": "AIzaSyD_ClfDnGV0RhiqrGGbaS5Xoz3wbw2hGJA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "378467765592-k6tma4q0gu5m1ntkbl61iohjqlasgr56.apps.googleusercontent.com",
+              "client_id": "114683138397-b0svm7lf3dvtlu09t870848nqi279p49.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

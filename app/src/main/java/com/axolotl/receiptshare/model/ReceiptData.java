@@ -1,4 +1,4 @@
-package com.axolotl.receiptmanager.model;
+package com.axolotl.receiptshare.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;

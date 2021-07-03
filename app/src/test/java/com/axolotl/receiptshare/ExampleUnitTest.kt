@@ -1,4 +1,4 @@
-package com.axolotl.receiptmanager
+package com.axolotl.receiptshare
 
 import org.junit.Test
 

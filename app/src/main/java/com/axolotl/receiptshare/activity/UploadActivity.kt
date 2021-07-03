@@ -1,4 +1,4 @@
-package com.axolotl.receiptmanager.activity
+package com.axolotl.receiptshare.activity
 
 import android.app.Activity
 import android.content.Intent
@@ -9,14 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.provider.MediaStore
-import com.axolotl.receiptmanager.R
+import com.axolotl.receiptshare.R
 import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
-import com.axolotl.receiptmanager.model.ReceiptData
-import com.axolotl.receiptmanager.utility.*
+import com.axolotl.receiptshare.model.ReceiptData
+import com.axolotl.receiptshare.utility.*
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -116,7 +116,7 @@ class UploadActivity : AppCompatActivity() {
         val handler = Handler()
         handler.postDelayed(object : Runnable {
             override fun run() {
-                if (imageUploading){
+                if (imageUploading) {
                     Log.d(MAIN_ACTIVITY, "Prompt that image is still uploading")
                     showToast(UPLOAD_PROMPTS.random(), 1500)
                     handler.postDelayed(this, UPLOAD_PROMPT_WAIT_TIME)

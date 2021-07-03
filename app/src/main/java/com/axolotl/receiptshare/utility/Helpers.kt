@@ -1,4 +1,4 @@
-package com.axolotl.receiptmanager.utility
+package com.axolotl.receiptshare.utility
 
 import android.app.Activity
 import android.content.Context
@@ -8,7 +8,6 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.IntRange
-import java.util.*
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.perf.ktx.performance
 import android.util.Log
