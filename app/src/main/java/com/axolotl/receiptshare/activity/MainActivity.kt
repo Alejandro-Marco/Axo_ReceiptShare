@@ -357,7 +357,8 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
                 .delete()
                 .addOnSuccessListener {
                     Log.d(MAIN_ACTIVITY, "(BUILDER) Get Receipt")
-                    val imageRef = firebaseStorageImage.child("${uid}.jpg")
+//                    val imageRef = firebaseStorageImage.child("${uid}.jpg")
+                    val imageRef = firebaseStorageImage.child(uid)
                     imageRef.delete().addOnSuccessListener {
                         Log.d(MAIN_ACTIVITY, "Receipt Deleted")
                         showToast("Receipt Downloading")
@@ -377,7 +378,8 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
         builder.setNegativeButton("Cancel") { _, _ ->
             Log.d(MAIN_ACTIVITY, "(BUILDER) Cancel Get Receipt")
         }
-        firebaseStorageImage.child("${uid}.jpg").getBytes(Long.MAX_VALUE)
+//        firebaseStorageImage.child("${uid}.jpg").getBytes(Long.MAX_VALUE)
+        firebaseStorageImage.child(uid).getBytes(Long.MAX_VALUE)
             .addOnSuccessListener { imageData ->
                 Log.d(MAIN_ACTIVITY, "Receipt Loaded")
                 receiptImageBitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)

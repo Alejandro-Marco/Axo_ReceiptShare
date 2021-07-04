@@ -129,7 +129,8 @@ class UploadActivity : AppCompatActivity() {
             .set(receiptData)
             .addOnSuccessListener {
                 Log.d(UPLOAD_ACTIVITY, "Receipt Data uploaded")
-                val fileRef = firebaseStorageImage.child("$uid.jpg")
+                // val fileRef = firebaseStorageImage.child("$uid.jpg")
+                val fileRef = firebaseStorageImage.child(uid)
                 val uploadTask = fileRef.putFile(accountImageURI!!)
                 Log.d(UPLOAD_ACTIVITY, "Uploading Receipt Image")
                 val urlTask = uploadTask.continueWithTask { task ->
