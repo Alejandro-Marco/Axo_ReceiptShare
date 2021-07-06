@@ -285,15 +285,15 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
     private fun isMinimumDate(receiptDate: String, minDate: String): Boolean {
         val rDate = receiptDate.split('/')
         val mDate = minDate.split('/')
-        var rDateNumerical = 0.00
-        var mDateNumerical = 0.00
-        for (index in 0..2) {
-            rDateNumerical += rDate[index].toDouble()
-            mDateNumerical += mDate[index].toDouble()
-        }
-        if (rDateNumerical < mDateNumerical)
-            return false
-        return true
+        if (mDate[0] < rDate[0])
+            return true
+        if (mDate[0] == rDate[0])
+            if (mDate[1] < rDate[1])
+                return true
+        if (mDate[1] == rDate[1])
+            if (mDate[2] <= rDate[2])
+                return true
+        return false
     }
 
     /***
@@ -301,7 +301,7 @@ class MainActivity : AppCompatActivity(), ReceiptAdapter.ClickReceipt {
      * passed all test
      */
     private fun sortByDate(receiptData: ArrayList<ReceiptData>): ArrayList<ReceiptData> {
-        val receiptMap = mutableMapOf<ReceiptData, Double>()
+        val receiptMap = mutableMapOf<ReceiptData, Int>()
         for (receipt in receiptData)
             receiptMap[receipt] = receipt.numericalDateValue()
         return ArrayList(receiptMap.toList().sortedBy { (_, value) -> value }.toMap().keys)
