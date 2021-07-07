@@ -16,7 +16,8 @@
         android:roundIcon="@drawable/img_share_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.ReceiptManager_v00"
-        android:requestLegacyExternalStorage="true">
+        android:requestLegacyExternalStorage="true"
+        android:hardwareAccelerated="true">
 
         <meta-data
             android:name="firebase_performance_logcat_enabled"

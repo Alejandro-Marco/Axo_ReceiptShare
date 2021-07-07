@@ -33,8 +33,8 @@ class UploadActivity : AppCompatActivity() {
     private val firebaseStorageImage = firebaseStorage.getReference(PATH_RECEIPT)
     private val firebaseAnalytics = Firebase.analytics
 
-    private var accountImageBitmap: Bitmap? = null
-    private var accountImageURI: Uri? = null
+    private var receiptImageBitmap: Bitmap? = null
+    private var receiptImageURI: Uri? = null
 
     /**
      * Performance monitoring does not work as intended when using listeners
@@ -58,7 +58,7 @@ class UploadActivity : AppCompatActivity() {
                 etType.error = "Required"
                 upload = false
             }
-            if (accountImageBitmap == null) {
+            if (receiptImageBitmap == null) {
                 showToast("No Receipt Image", 1000)
                 upload = false
             }
@@ -78,7 +78,7 @@ class UploadActivity : AppCompatActivity() {
                     date
                 )
             } else {
-                if (accountImageBitmap != null)
+                if (receiptImageBitmap != null)
                     showToast("Missing Inputs")
             }
         }
@@ -131,7 +131,7 @@ class UploadActivity : AppCompatActivity() {
                 Log.d(UPLOAD_ACTIVITY, "Receipt Data uploaded")
                 // val fileRef = firebaseStorageImage.child("$uid.jpg")
                 val fileRef = firebaseStorageImage.child(uid)
-                val uploadTask = fileRef.putFile(accountImageURI!!)
+                val uploadTask = fileRef.putFile(receiptImageURI!!)
                 Log.d(UPLOAD_ACTIVITY, "Uploading Receipt Image")
                 val urlTask = uploadTask.continueWithTask { task ->
                     if (task.isSuccessful) {
@@ -143,8 +143,8 @@ class UploadActivity : AppCompatActivity() {
                     }
                 }
                 urlTask.addOnSuccessListener {
-                    accountImageBitmap = null
-                    accountImageURI = null
+                    receiptImageBitmap = null
+                    receiptImageURI = null
                     etAmount.text?.clear()
                     etType.text?.clear()
                     ivReceipt.setImageResource(R.drawable.img_invoice)
@@ -187,13 +187,14 @@ class UploadActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 0 && resultCode == Activity.RESULT_OK && data != null) {
             ImageViewCompat.setImageTintList(ivReceipt, null)
-            accountImageURI = data.data!!
-            accountImageBitmap = MediaStore.Images.Media.getBitmap(contentResolver, accountImageURI)
+            receiptImageURI = data.data!!
+            receiptImageBitmap = MediaStore.Images.Media.getBitmap(contentResolver, receiptImageURI)
 //            ivReceipt.setImageBitmap(accountImageBitmap)
             Glide.with(this)
-                .load(accountImageBitmap)
+                .load(receiptImageBitmap)
                 .fitCenter()
-                .override(2560, 6880)
+//                .override(2560, 6880)
+                .override(1256, 4560)
                 .placeholder(R.drawable.img_invoice)
                 .into(ivReceipt)
         }
